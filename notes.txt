@@ -1,0 +1,8 @@
+notes and breakdown of the task:
+1. program should be run trough the terminal
+2. it could expect different input, which should be checked
+3. if no input is given then "10" is taken by default
+4. program should have a way to store the already found primals or even the final table so when the program is called again then there is no point of doing the calculations for the already found numbers
+5. should have a way to generate any number of primals
+6. should be as modular as possible
+7. the output should be printed to the STDOUT (and look readable)
