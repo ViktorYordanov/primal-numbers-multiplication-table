@@ -1,0 +1,1 @@
+# primal-numbers-multiplication-table
