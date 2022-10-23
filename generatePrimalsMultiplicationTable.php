@@ -6,8 +6,12 @@ use App\Primals;
 $primals = new Primals();
 
 echo 'Type the number of primals you want: ';
-$input = fgets(STDIN);
+$input = trim(fgets(STDIN));
 // check the input before passing to the generate method
-
-$primals->generateTable(4);
-$primals->printTable();
+if (preg_match('/^[0-9]+$/',$input)) {
+    $count = (int) $input;
+    $primals->printTable($primals->generateTable($count));
+}
+else {
+    fwrite(STDOUT, 'You must enter a valid number!');
+}
