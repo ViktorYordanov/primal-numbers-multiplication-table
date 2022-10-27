@@ -45,15 +45,6 @@ class Primals
         return $result;
     }
 
-    public function setCellWidth($table): void
-    {
-        $finalRow = end($table);
-        $finalCell = end($finalRow);
-        $width = strlen((string) $finalCell)+1;
-
-        $this->cellWidth = $width;
-    }
-
     public function generateTable($count): array
     {
         $table = $this->storage->getData($count);
@@ -79,12 +70,6 @@ class Primals
                     $m = $multiplicators[$i];
                     $res = $p*$m;
                     $tableRow[] = $res;
-
-                    $cellWidthNeeded = strlen((string) $res) + 1;
-                    if ($cellWidthNeeded > $this->cellWidth) {
-                        $this->cellWidth = $cellWidthNeeded;
-                        print($cellWidthNeeded.'\r\n');
-                    }
                 }
     
                 $table[$tr] = $tableRow;
@@ -92,35 +77,20 @@ class Primals
 
             $this->storage->storeTable($table);
         }
+        $this->table = $table;
 
-        $this->setCellWidth($table);
+        $this->getLongestPrimal($table);
         
         return $table;
     }
 
-    /**
-     * Print out the table to STDOUT
-     */
-    public function printTable($table): void
+    public function getLongestPrimal(): int
     {
-        $format = $this->getPrintFormat(count($table));
-        foreach($table as $row) {
-            fwrite(STDOUT, vsprintf($format, $row));
-        }
-        
-    }
 
-    public function getPrintFormat($cells): string
-    {
-        $i = 0;
-        $format = '|';
-        $mask = "%{$this->cellWidth}s|";
-        while ($i < $cells) {
-            $format .= $mask;
-            $i++;
-        }
-        $format .= PHP_EOL;
+        $finalRow = end($this->table);
+        $finalCell = end($finalRow);
+        $width = $finalCell;
 
-        return $format;
+        return $width;
     }
 }
